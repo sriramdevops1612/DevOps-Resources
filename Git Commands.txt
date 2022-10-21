@@ -1,0 +1,108 @@
+   /*GIT COMMANDS*/
+
+Initialise GIT repository
+git init
+
+CLone repository from git
+git clone <repo name>
+
+Mov all files from working directory to staging area
+git add .m
+
+Mov specific files from working directory to staging area
+git add file1 file2
+
+Add files from Staging area to local repo
+git commit -m "message"
+
+git push repo-name
+check the file status in working directory and staging area
+git status
+
+check the file status in local repository area
+git log 
+git log --oneline(file status in one line)
+
+Clear the screen
+clear or ctrl + L 
+
+change last commit message
+git commit --amend -m "new message"
+
+
+git remote show origin
+
+git remote show
+
+git config --list
+git config --global user.name "username"
+git config --global user.email "useremail"
+git remote add origin <list>
+
+push files from local repo to git repo 
+git push origin <branchname>
+
+create a file
+touch filename
+
+create and edit a file or edit existing files
+Vi filename 
+Esc + :wq   (save and exit file)
+Esc + :q!   (force quit without saving)
+
+git annotate filename
+git show <7 digits commitid>
+
+show existing branches
+git branch -a
+
+create new branch
+git branch <new branch name>
+
+Switch to a branch
+git checkout<new branch name>
+
+Exit from present branch 
+git checkout
+
+push branch to git repo
+git push origin <branch>
+
+create and switch to a new branch
+git checkout -b <new branch name>
+
+merge branch to anoth branch in git
+git merge <master>
+
+abort merge when a conflict occurs
+git merge --abort
+
+create tag
+git tag <tagid>
+
+DIsplay info of a tag
+git show <tag id>
+
+Assign tag to a particular commit Id
+git tag -a <newtagid> <commitid> -m <message description>
+
+Delete a tag
+git tag -d <tagid>
+
+Push tag in to git 
+git push origin <tagid>
+
+Delete tag from git
+git push origin -d <tagid>
+
+Push all tags 
+git push --tags
+
+Get files from local repo to working directory
+git reset HEAD~
+
+get files from working directory to staging area
+git restore --staged filename
+
+Get file from another branch 
+git cherry-pick <commitid> 

@@ -1,0 +1,98 @@
+Install java 
+
+Download and run Java 
+copy path of jdk bin 
+Go to system setting->Advanced syatem setting ->env variables
+In env variables add path and in system variables add variable name as JAVA_HOME and value as path(excluding bin)
+
+In cmd check --- java -version
+
+Maven 
+
+Download apache maven 
+copy path of maven bin 
+Go to system setting->Advanced syatem setting ->env variables
+In env variables add path and in system variables add variable name as JAVA_HOME and value as path(excluding bin)
+
+IN gitbash check- mvn
+                - mvn -version
+
+Maven Goals :
+- validate
+- compile
+- test-compile(test classes )
+- test(test cases)
+- package(.jar, .war)
+- verify (to run integration test after build)
+- install (build gets copied in local repo--(c drive .m2))
+- Deploy(to another server)
+- clean 
+
+Frequently used :
+maven clean install
+maven clean package 
+
+
+Install eclipse
+
+eclipse (used by developer to develop code)
+
+create new java project->maven project
+proj name : first_project
+Filter: maven-archetype-quickstart
+grp Id : com
+Artifact Id : firstproject 
+version :
+Package gets created as com.firstpackage
+
+mvn compile (classes get created except for test )
+mvn test-compile(classes get created including test)
+mvn clean 
+mvn package(jar gets created)
+
+
+To run a build appication(got to target folder)
+java -jar <jarname> 
+
+pom.xml -  all dependencies will be declared here and are downloaded in .m2 folder                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Transitive dependency :
+we want dependency but that dependency depends on other dependencies
+
+while pushing the project on to git exclude the target folder where the build will be done 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                            build application)
+
+ 
