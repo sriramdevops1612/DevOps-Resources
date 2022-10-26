@@ -1,0 +1,102 @@
+Jenkins:
+
+DEveloper develops and pushes code on GIT.
+
+we will get that code from GIT and will download on tto it and will build war file
+will deploy this war to another server (tomcat(warfile)).
+
+Linux :
+ Ubuntu  HW
+ Redhat -RHEL HW	
+ Centos
+ Amazon Linux 
+ Fedora
+ Debian HW
+ Kali Linux - Hackers 
+
+MAven Versions HW
+Version used in java deployments HW
+
+In Ec2 we will use Linux 
+IN jenkins we will use plugin to integrate with git, maven etc.,
+
+Select t2.medium while creating instance	
+security : Add 8080(By default jenkins runs on 8080 and maven also runs on this)
+
+Maven is a build server (Port doesnot exists)
+
+connect to root
+
+yum install java
+check version : java --version 
+ 
+find /usr/lib/jvm/java1.8* | head -n 3
+
+edit bash_profile file with java_Home and add to path
+
+*Updates repo info *
+sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+
+ yum install jenkins after running sugo get and rpm commands
+service jenkins start
+service jenkins status
+chconfig jenkins on
+	
+then copy the ip and paste in browser by adding :8080
+Jenkins page gets launched
+
+copy the link present in jenkins page 
+Go to Ec2 instance 
+cat url  (code gets generated paste in jenkins page)
+
+Create first time user
+
+next--save --start jenkins
+
+
+Install maven in Ec2 (create add env variables)
+
+install git: yum install git
+
+Go to Jenkins page :
+Manage Jenkins->AVailable->install maven integration , pipeline maven integration, maven invoker, Deploy to container (install without restart)
+
+CLick ->new Item ->Maven Project--(give name ->Ok)
+
+create new repo in GIt->
+ 
+Go to maven instance ->yum install git -> git init .
+add target file in .gitignore
+
+git add.
+git commit -m "add"
+
+In Git : Generate a key(Developer settings) :use that key to push 
+git push https://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@github.com/sriramdevops1612/Jenkin_example.git
+
+
+COnfigure :
+Give Gitlink and path(/usr/bin/git)
+add maven path (M2_Home)
+goals : clean install
+JDK (Java_HOME)
+
+start tomcat instance 
+Add tomcat url 
+
+save ->Apply
+ Build now
+
+
+
+
+/***HOME_WORK ****/
+MAVEN versions with date 
+Release Date	Version	Required Java Version
+2021-04-04	       3.8.1	Java 7
+2019-11-25	       3.6.3
+2019-08-27	       3.6.2
+2019-04-04	       3.6.1
+
+
