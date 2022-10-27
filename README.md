@@ -35,3 +35,27 @@ Checking ~~strikethrough for a word
 <!--To check block quote, you must add an > sign before the sentence or the word.--->
 >Checking balckquote
 
+
+
+<!---diff is used to generate coloured text--->
+```diff
+- text in red
+```
+
+```diff
+@@ text in purple (and bold)@@
+```
+
+```diff
++ text in green
+```
+
+```diff
+! text in orange
+```
+
+```diff
+
+# text in gray
+```
+
