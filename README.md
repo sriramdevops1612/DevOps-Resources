@@ -59,3 +59,7 @@ Checking ~~strikethrough for a word
 # text in gray
 ```
 
+<!---In an unordered list, bullets are used. Use *, - , +. symbols for bullets. Use the symbol with space before any text--->
++ Apple
+- Bat
+* Cat
