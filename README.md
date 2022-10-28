@@ -35,7 +35,11 @@ Checking ~~strikethrough for a word
 <!--To check block quote, you must add an > sign before the sentence or the word.--->
 >Checking balckquote
 
-
+<!--- Use (```) fences if you want to block multiple lines of code.--->
+```
+block fence checking
+text 
+```
 
 <!---diff is used to generate coloured text--->
 ```diff
@@ -63,3 +67,46 @@ Checking ~~strikethrough for a word
 + Apple
 - Bat
 * Cat
+
+<!---Tables(by default it is left alligned  --->
+| Number  |       Name         |
+| ------  | -------------------|
+|   1     |     Student1       |
+|   2     |     Student2       |
+|   3     |     Student3       |
+
+<!---Right alligned table--->
+
+| Number  |       Name         |
+| ------: | ------------------:|
+|   1     |     Student1       |
+|   2     |     Student2       |
+|   3     |     Student3       |
+
+| Syntax      | Description | Test Text     |
+| :---        |    :----:   |          ---: |
+| Header      | Title       | Here's this   |
+| Paragraph   | Text        | And more      |
+
+<!---Superscript--->
+X^2^
+A ^2^  
+$$e^{-\frac{t}{RC}}$$
+
+
+<!---Subscript--->
+H~2~O
+log 2~a~
+
+<!---EMojis--->
+That is so funny! :joy:
+
+<!---Link-->
+[Google Link](http://www.google.com)
+
+<!---Disable Link--->
+
+ `http://www.google.com`
+
+<!---Image--->
+![Nature] (/Grav/images/Grav-images.jpg)
