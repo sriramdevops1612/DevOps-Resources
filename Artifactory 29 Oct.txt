@@ -1,0 +1,105 @@
+/*Artifactory*  /
+TYpes of application
+1. Web application 
+2. System based application
+3. Application Programming interface
+
+Developer pushes the code on to git ..
+then jenkins, MAven gets the code from git and builts the code to generate artifact.
+The artifact(war, jar) can be pushed to git..but this is not encouraged 
+
+In Artifactory we will have versions:
+1. Versioning 
+2.  Dependency : A is dependency for B , B will work if A code gets copied within it.
+Instead of this we can build A and put it in artifactory
+Which can be used by B (by adding dependency in pom file)
+
+IN companies, Enterprise artifactory layer exists between central repo and user
+
+Artifactory:
+we can create 30 to 40 types of repo's 
+Ex: maven , nuget, NPM (Node Package Manager)
+In Maven -there will be Snapshot repo and maven repo
+In pom we will mention snapshot(means the developer is still working on that)
+
+
+In Ec2:
+Launch instance with t2 medium
+Add inbound rule 8081
+
+Installation steps :
+Login to instance as a root user and install Java
+
+ yum install java-1.8* -y 
+set path of environment variables
+Download Artifactory packages onto /opt/
+For Latest version of Artifactory OSS download it from here
+For Older version of Artifactory OSS download it from here
+For Latest version of Artifactory Pro download it from here
+
+cd /opt 
+wget https://jfrog.bintray.com/artifactory/jfrog-artifactory-oss-6.9.6.zip
+extract artifactory tar.gz file
+
+unzip jfrog-artifactory-oss-6.9.6.zip
+Go inside to bin directory and start the services
+
+cd /opt/jfrog-artifactory-oss-6.9.6/bin
+./artifactory.sh start
+access artifactory from browser
+
+http://<PUBLIC_IP_Address>:8081 
+Provide credentials
+
+username: admin
+password: passwrod 
+
+Create users...Admin->Users(users are created to give access to others, give admin access previliges)
+
+Quick Set up->Maven
+
+IN MAven ---> Local(lib-snapshot-local, lib-snapshot) (we will push from .m2 to local repo)
+         ---> Virtual(lib-release-local, lib-release)
+         --- > Remote(jcenter)  
+
+Login to maven instance
+Sudo su -
+ls
+clone java project from git
+git clone <repo name>
+mvn clean package
+
+in pom.xml ->packaging ->It can be war/jar
+
+
+ARtifact repository browser ->
+In lib-snapshot-local(as in pom it is mentioned as snapshot)- click on set up-copy th distribution management(snapshot repository)
+in sert that in pom after build tag- Telling code where the artifactory repository is
+
+
+Elastic ip:
+Allocate elastic ip->Allocate->use that Ip
+Actions->Associate elastic Ip address -to artifactory instance 
+
+Now login to jfrog with associated ip
+In maven 
+cd ~/.m2
+vi settings.xml
+  add mirrors
+go to jfrog 
+local -set me up -generate maven settings->copy-> and add servers of tomcat as well 
+Add passowrd and user name of artifactory give admin previliges while creating user
+(This is done to give password of artifactory)
+ 
+
+cd /root
+
+cd proj
+mvn clean  deploy
+
+snapshot will be present in local-snapshot-local
+ with version name 
+
+
+if we mention version as release and add release repository(distribution management)
+  then pro gets deployed on lib-release -local
