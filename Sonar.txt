@@ -1,0 +1,114 @@
+/** SONAR QUbe **/
+Static Code Analysis tool
+1. Rules
+2. Data Base
+3. Web interface
+sonar scanner is used to scan the code and the result after scanning the code is stored on sonar server and is opened on GUI.
+to perform a specific query elastic search is used.
+If the data base is not created, by default adatabase will be created
+
+To install sonarqube open jdk 11 has to be installed
+
+create Ec2 for sonarscan with t2 small
+here username is ec2 user
+passowrd is key (yamini_key)
+Add 9000in inbound rule which is webport for sonarqube
+
+sudo su -
+amazon-linux-extras list
+amazon-linux-extras install java-openjdk11
+find /usr/lib/jvm/java-* | head -n 3
+ 
+Install java
+
+cd /opt
+
+check sonar qube LTS 
+wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-8.9.10.61524.zip
+unzip sonar....
+ls
+cd bin/
+ls
+cd linux-x86-64
+ls
+./sonar.sh status
+./sonar.sh start(we cannot start a sonar with sonar so create new users, only root has access to changes user)
+
+./sonar.sh -gives options of sonar
+cd ..
+cd ..  come to sonarcube directory
+ls
+check logs :cd logs
+ls
+cat sonar.xxxx.log
+
+when a user is created then group gets created with same name
+
+cat /etc/passwd--retrieces users list., we use EC2
+useradd sonaradmin (Adding user)
+passwd sonaradmin(Adding password for sonar admin)
+cd /opt
+ls -lrt(Only root has permissions)
+chown sonaradmin:sonaradmin /opt/sonarqube....(changes will be done at folder level)
+chown -R sonaradmin:sonaradmin /opt/sonarqube....(changes will be done recursively)
+cd /opt
+ls -lrt
+
+to add new user : useradd yamini
+                  passwd yamini(change password for yamini)
+
+cd /root
+sudo su -yamini (to switch to another user)
+
+cd /home - to know the users
+
+su su yamini
+cd /opt
+cd /conf-sonar.properties --we need to mention urls of database
+cd bin/
+ls
+cd linux-x86-64
+ls
+./sonar.sh status
+./sonar.sh start
+
+take ip of sonar server and :9000
+username , password : admin, admin
+change
+
+Rules : to check something 
+Quality profile :Set of rules(default quality profile is sonarway)
+
+create new quality profile
+lang :java, parent : none
+
+click activate more
+
+Activate  Assign severity
+
+check in quality profile of java and check the num of rules 
+to activate all -> Bulk change->check in quality profile
+
+Sonar gateway is the code coverage
+
+open maven server-> clone the project-> cd Hello world
+
+In sonarqube ->Add project->Manually ->key : maven-hello->Set up->maven-hello(generatae)->(copy token 7b09b2252526138caecf247ac786b05f9c8c0528)
+
+maven ->run commands in maven server(clean package is added)
+mvn clean packge sonar:sonar \
+  -Dsonar.projectKey=Maven_hello \
+  -Dsonar.host.url=http://3.94.185.98:9000 \
+  -Dsonar.login=key
+
+if we foget key ->delete project and create
+As we have artfact repo and then central repo
+in ~/.m2 folder -> mv settings.xml settings123.xml
+cd /root
+cd java sample project
+run maven command ...build success(here we are searching in central repository instead of artifact repository)
+copy the url from build success and paste it in browser
+
+check bugs,change  and run accordingly
+
+create quality gate->on overallcode->issue>0->set as default-
