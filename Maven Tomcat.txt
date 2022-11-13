@@ -1,0 +1,337 @@
+How to install Maven on linux?
+
+->For that we are using AWS EC2 machine
+
+->login to ur AWS accnt
+
+->AFter login go to EC2 machine, click on launch instance, 
+  give the name of the server(Maven-Server) and select the OS as Amazon AWS and instance type as (t2.micro)
+
+->key pair - create a new key pair (DevOps-training-October) and it gets downloaded automatically
+  and store that carefully
+
+->Allow SSH traffic from Anywhere(as of now)
+
+->click on launch instance(you get a success message)
+
+->click on the instances and it shows "Maven-Server" - and it will have instance ID - click on it
+
+->Now we need to connect to the "Maven-Server" by select it and click on connect - EC2 instance connect
+  now it gets connected and linux screen is opened
+
+->Now give some commands and check the user
+
+->$whoami - to check which user (it shows EC2-user)
+
+->$sudo su - : to go to the root, now give $whoami(it shows root)
+
+->for maven to get installed, we need to first install Java
+
+->$yum install java, it gets installed and click 'y'(installations will be completed), 
+  now we are in root user.
+
+->if u click #exit - it gets logout and u become normal user.
+ 
+  (if we do"#cntrl+l" - the commands will be there on the screen and they will scroll up)
+  (but when u do "#clear" - everything gets vanished)
+  (if u give"#history" - u can check the previously given commands)
+
+->Now we need to check what is the java path?
+   (click #which java - u get a path: /usr/bin/java)
+   (check for java version : #java --version)
+
+->now do #pwd - to check which current working directory u are in
+
+->now do #cd /usr/bin
+
+->now do #ls
+
+->now do #cd /usr/lib/jvm and then #ls
+
+->now do #cd java-17-amazon...(the one which it shows the above) and then #ls and then #pwd(it shows Path)
+
+->now copy that whole path and set it as "JAVA-HOME"
+
+->now #ls -a | grep.bash
+
+->cat ~/.bash_profile
+
+->#vi ~/.bash_profile(~ is nothing from starting from the root)
+  (the file gets opened)
+
+->In that file (esc+i) just type JAVA_HOME=(the path)JAVA_HOME=/usr/lib/jvm/java-17-amazon-corretto.x86_64
+
+->in PATH=$PATH:$HOME/bin:$JAVA_HOME( we have set the environmental variable)
+
+->now save the file
+
+->now if we give #echo $path(our file should appear, but it will not come)
+  (the environmental variable is just stored in that value...but we need to run that script)
+
+->now #source ~/.bash_profile
+
+->now do #echo $PATH (now it shows the whole path)
+
+->Now we need MAven
+
+->now do #cd /opt (going to that folder)
+
+->#pwd - it shows /opt
+
+->now do #cd / and then #ls - now it shows all the folders which we have
+
+->now do #cd /opt (opt is just a dummy folder)
+
+->downloading maven into that dummy folder
+
+->now go to chrome and do maven linux download (download the tar zip version)
+  (copy that link) and come to our linux screen
+
+->#wget "paste the link"
+
+->#ls ( we can see the maven getting installed there)
+
+ now that is the zip file and we need to unzip it by
+
+->#tar -xvzf give that file name showing there
+
+->#ls - we get to see "apache-maven" in that file
+
+->#cd "give that apache-maven file" and then #ls
+
+ now we need to set this as the path..how to set it?
+
+->#pwd - we get the path, copy that path and then open 
+
+->#vi ~/.bash_profile
+
+   and then type M2_HOME=copy that path
+                 M2=copy that path/bin
+	
+  PATH=$PATH:$HOME/bin:$JAVA_HOME:$M2_HOME:$M2
+
+->save the file, #ls
+
+->#echo $PATH - to see the added changes( but they will not appear) bcz we need to run
+
+->#source ~/.bash_profile
+
+->now #echo $PATH (we can see the changes) and environmental variables are set
+
+->now #mvn --version - now maven is installed
+
+( now do #cd .. and then #pwd - we are in /opt folder)
+(#mkdir hinduja and then #cd hinduja)
+
+
+Now we are going to make changes in the maven:
+
+Just select the server and then click on connect
+
+->#sudo su - : root user and then #ls
+
+now we are creating a new project
+
+->#mvn archetype:generate
+
+it will ask for the number of the template (1989)
+choose a number: 7:7
+
+it will ask for "group id" - com.indu
+artifact id - secondproject
+version - put it as :(it will take the same) and click enter and then click Y
+
+->#ls - we can see the created secondproject there
+->#cd secondproject/ and then #ls
+ 
+Now we need to build this project
+
+->#mvn clean package
+->#ls (we can see the target folder here)
+->cd target/ and then #ls - we can see the war file there
+
+now this secondproject should be deployed on to the tomcat server
+
+now configure the Tomcat server:
+
+->duplicate the EC2 tab
+->click on the services and then search for EC2 click on instances(running)
+->click on launch instance and give name as "Tomcat Server"
+->provide key pair (hinduja_key) and click on launch instance
+
+now select Tomcat Server and go to security in that and click on security groups and edit 
+inbound rules and then click on add rule
+
+there we should provide type as - custom tcp
+                        port - 8080
+                        custom - 0.0.0.0/0
+then click on save rules
+
+->now go to CE2 and then select Tomcat Server and click on connect
+
+->sudo su - : root user
+we need java on tomcat too, so we install it.
+
+->#yum install java and then check for java version
+now we need to set the JAVA_HOME variable for that we go to
+
+->#cd /usr/lib/jvm folder and then click #ls
+  now we can see the path there on the screen and now go to
+
+->#cd "path" and then do #pwd - then we get the path
+so that file we should open which is bash_profile
+
+->#vi ~/.bash_profile
+
+JAVA_HOME=/usr/lib/jvm/java-17-amazon-corretto.x86_64
+
+PATH=$PATH:$HOME/bin:$JAVA_HOME
+
+now do #source ~/.bash_profile
+->#echo $PATH
+now we get the path and if u type #java - version we get it everywhere bcz we set envi. variable
+
+Now we need to install Tomcat
+->go to browser and click tomcat download
+->select tar.gz file(copy link)
+
+download it to the opt folder
+#cd /opt
+->#wget "paste the copied link" and do #ls
+we can see tomcat server there ( we downloaded in /opt bcz all the above is java directory)
+so we came out of java and downloaded in dummy /opt folder
+
+Now we need to unzip this by
+->#tar -xvzf "the above tomcat server shown in screen"
+->#ls
+->cd apache-tomcat-10.0.27/
+->#ls (we can see the files there)
+
+Now there are some steps to install Tomcat Server(sriramrepo-tomcat installation)
+
+->#pwd
+->#cd bin/
+->ls -lrt( startup shutdown for tomcat)
+
+startup doesn't have eexecute permission, so we are changing it by
+->#chmod +x startup.sh - give execute permission to all
+->#chmod +x shutdown.sh
+->#ls -lrt (now we get executable permission for both startup and shutdown)
+
+->#pwd : we get a path /bin and in that bin we have startup and shutdown..now we need to run them
+->#./startup.sh (we get tomcat started)
+ Now we need to know the IP address where it started..
+ Now go to instances - select the tomcatserver - copy the public IP
+ go to browser paste the link there:8080
+ Tomcat is running
+->now go to the steps..there 8080 is running on both jenkins and tomcat...
+->now we change the tomcat port in "server.xml"
+  In Apache there is conf - in that server.xml (go there)
+
+->#pwd - we are in bin
+->#cd ..
+->#cd pwd
+->#ls (conf file is seen)
+  now we need to go to conf
+->#cd conf 
+->#ls (we get to see "server.xml" file here)
+->vi server.xml - open the file
+   (change the connector port =8090) and save the file
+
+->now we need to down the server after making the changes
+->#cd ..
+->#ls
+->#cd bin
+->#ls
+->./shutdown.sh
+  Now again do startup
+->./startup.sh
+  now go to browser and change port to 8090 and refresh...still it doesn't work
+  If we want to access through browser we shoud modify in EC2 that pls allow 8090
+  go to instances, select tomcat and then security - security groups - edit inbound
+  allow 8090
+->#ls
+->#cd ..
+->#ls
+->pwd
+->#cd webapps
+->#ls
+->#cd manager/
+->#ls
+->#cd META-INF/
+->#ls
+->#vi context.xml 
+    do changes in (allow=".*")
+    save the file
+->#pwd
+->#cd ../../..
+->#pwd
+->#cd bin/
+->#ls
+After every change do shutdown and then startup
+
+->./shutdown.sh
+->./startup.sh
+ Now refresh the page and then click on manager app (it will ask for username&pwd)
+->#ls 
+->#find / -name tomcat-users.xml -- reverted
+   it will give a path and copy that path
+->#vi "paste the link" and open the file
+   copy the file content from repo and paste it here and save the file
+
+->#cd ..
+->#cd bin/
+->#./shutdown.sh
+->#./startup.sh
+->#ls
+Now our tomcat server is ready
+now we need to go to maven 
+Go to EC2 - click on maven and then click connect
+#sudo su -
+#ls
+it shows our secondproject
+#cd secondproject/
+#ls
+there is a target file
+#cd target
+there is a war file
+#cd ..
+#ls
+#rm -rf target/
+#ls (target file removed)
+#cd src/ and then #ls - main folder will appear
+#cd main/ and then #ls - webapp will appear
+#cd webapp/ and then #ls
+#vi index.jsp
+change the code and save the file
+#cd ..
+#cd ..
+#cd ..
+#pwd
+#ls
+there is pom.xml
+#vi pom.xml (take the code from the reference)
+add the plugin
+and then put the public ip of tomcat server and 8090 port,and change the project to "secondproject" save the file
+#cat pom.xml - added changes will appear
+Now we shud give passwords and then authenticate
+#find / -name .m2
+#cd /root/.m2
+#vi settings.xml
+make changes
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
+ 
+  <servers>
+    <server>
+      <id>TomcatServer</id>
+      <username>admin</username>
+      <password>admin</password> 
+    </server>
+  </servers>
+</settings>
+
+save file 
+then go to #cd /root and then #ls
+#cd secondproject/ and then #ls
+#mvn tomcat7:deploy
