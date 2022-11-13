@@ -1,0 +1,62 @@
+In Jenkins:
+login to jenkins and create a freestyle project 
+
+provide below details:
+git hub url
+GitHub hook trigger for GITScm polling
+build steps: maven version:M2_HOME, Goals: clean install
+
+
+In git hub repo:
+
+
+repo->settings->webhooks
+Payload url : http://ip:8080/github-webhook/
+Content type: application/json 
+
+changes made in git hub repo will automatically runs the jenkins job.
+----------------------------------------------------------------------
+Groovy script start with node  
+create a pipeline project:
+general : pipeline : pipeline script: 
+pipeline {
+    agent any
+    stages {
+	    stage ('Build') {
+          steps{
+              
+              sh "sleep 5"
+              
+          } 
+        }
+        stage ('Run Tests') {
+            parallel {
+                stage ('Test On Windows') {
+                   steps{
+              
+                          sh "sleep 5"
+                          
+                    } 
+                }
+                stage ('Test On Linux') {
+                     steps{
+              
+                          sh "sleep 5"
+                          
+                      } 
+                }
+            }
+        }
+    }
+}
+
+USE groovy sandbox 
+
+-------------------------------------------------------
+Pipeline: Pipeline script from SCM
+
+provide git url
+
+
+script path :jenkins file in git
+
